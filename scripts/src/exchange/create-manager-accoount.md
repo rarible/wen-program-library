@@ -1,0 +1,6 @@
+
+Managed public key
+
+https://explorer.solana.com/address/Ecw6DjG8L7dqT26EDaEzNYq3Sugk8SNkAY37BSC9owwi?cluster=devnet
+
+tx hash creation: 2ZQ14nRpccjToBENu6qMRZKpFy7o8F4BTC15dM7kxyXxdZEHYJXjA79Cd6SG4Cn2f2CJAJBmLYGmVyT9tvJKdFJG

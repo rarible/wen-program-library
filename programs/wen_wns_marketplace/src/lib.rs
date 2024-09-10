@@ -10,7 +10,7 @@ pub mod utils;
 
 pub use instructions::*;
 
-declare_id!("sALEeD9VGNquoGSXvUAKLeVbXdjiPCb3FTuTm1xSLod");
+declare_id!("8xBBKGGihbs318FzGLR2pS7YdMnuL3uuF7T92YtF3wu7");
 
 #[program]
 pub mod wen_wns_marketplace {

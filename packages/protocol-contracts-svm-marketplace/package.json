@@ -28,7 +28,7 @@
     "build": "rm -rf ./build && tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json"
   },
   "dependencies": {
-    "@rarible_int/rarible-idl": "0.1.0"
+    "@rarible_int/protocol-contracts-svm-idl": "0.1.0"
   },
   "publishConfig": {
     "registry": "http://nexus.rarible.int/repository/npm/"

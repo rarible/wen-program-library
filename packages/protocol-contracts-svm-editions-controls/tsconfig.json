@@ -1,16 +1,4 @@
 {
-  "compilerOptions": {
-    "outDir": "dist",
-    "declaration": true,
-    "declarationDir": "dist/types",
-    "rootDir": "src",
-    "moduleResolution": "node",
-    "module": "CommonJS",
-    "resolveJsonModule": true,
-    "target": "ES6",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*"]
 }

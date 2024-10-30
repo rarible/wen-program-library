@@ -21,7 +21,7 @@ export async function getWallet(
   if (walletType === "keypair") {
     // Load the keypair from the file
     if (keypairPath.length == 0) {
-      keypairPath = process.env.KEYPAIR_PATH;
+      keypairPath = process.env.KEYPAIR_PATH!;
     }
     const keyfile = JSON.parse(fs.readFileSync(keypairPath, "utf8"));
     const signerKeypair = Keypair.fromSecretKey(new Uint8Array(keyfile));

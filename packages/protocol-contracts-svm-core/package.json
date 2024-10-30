@@ -14,20 +14,11 @@
   "license": "MIT",
   "main": "build/index.js",
   "files": [
-    "dist",
-    "src"
+    "/build"
   ],
-  "types": "./lib/types/index.d.ts",
-  "exports": {
-    "./lib/esm/*": "./dist/esm/*",
-    "./lib/cjs/*": "./dist/cjs/*.js",
-    "./lib/types/*": "./dist/types/*",
-    "./*": "./dist/*"
-  },
   "scripts": {
-    "clean": "npx shx mkdir -p lib && npx shx rm -rf lib",
-    "package": "npx shx mkdir  -p lib/cjs lib/esm lib/types",
-    "build": "tsc -b ./tsconfig.json"
+    "build": "tsc --project tsconfig-build.json",
+    "package": "npx shx mkdir  -p lib/cjs lib/esm lib/types"
   },
   "resolutions": {
     "libp2p-crypto": "0.21.2"
@@ -53,7 +44,8 @@
     "jsonwebtoken": "^9.0.2",
     "kubo-rpc-client": "^3.0.2",
     "spl-token-4": "npm:@solana/spl-token@0.3.11",
-    "tweetnacl": "^1.0.3"
+    "tweetnacl": "^1.0.3",
+    "@rarible_int/protocol-contracts-svm-idl": "0.1.0"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.5",

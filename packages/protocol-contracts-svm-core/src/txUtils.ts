@@ -72,8 +72,8 @@ export async function sendSignedTransaction({
     }
 
     return { txid };
-  } catch (error) {
-    if (error.message === "Transaction confirmation timeout") {
+  } catch (error: any) {
+    if (error.message == "Transaction confirmation timeout") {
       console.error("Transaction confirmation timed out");
     }
     throw error;

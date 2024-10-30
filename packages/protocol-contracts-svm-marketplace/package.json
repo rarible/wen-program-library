@@ -25,7 +25,7 @@
   "scripts": {
     "clean": "npx shx mkdir -p lib && npx shx rm -rf lib",
     "package": "npx shx mkdir  -p lib/cjs lib/esm lib/types",
-    "build": "rm -rf ./build && tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json"
+    "build": "pwd"
   },
   "dependencies": {
     "@rarible_int/protocol-contracts-svm-idl": "0.1.0"

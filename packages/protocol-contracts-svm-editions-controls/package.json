@@ -18,14 +18,15 @@
   ],
   "types": "./lib/types/index.d.ts",
   "exports": {
-    "./lib/esm/*": "./lib/esm/*",
-    "./lib/cjs/*": "./lib/cjs/*.js",
-    "./lib/types/*": "./lib/types/*"
+    "./lib/esm/*": "./dist/esm/*",
+    "./lib/cjs/*": "./dist/cjs/*.js",
+    "./lib/types/*": "./dist/types/*",
+    "./*": "./dist/*"
   },
   "scripts": {
     "clean": "npx shx mkdir -p lib && npx shx rm -rf lib",
     "package": "npx shx mkdir  -p lib/cjs lib/esm lib/types",
-    "build": "rm -rf ./build && tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json"
+    "build": "tsc -b ./tsconfig.json"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.1",
@@ -60,6 +61,7 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "5.3.3"
   },
+  
   "engines": {
     "node": ">=18"
   },

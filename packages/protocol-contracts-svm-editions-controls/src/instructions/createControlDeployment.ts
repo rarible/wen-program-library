@@ -9,12 +9,12 @@ import {
 import BN from "bn.js";
 
 import { TOKEN_2022_PROGRAM_ID } from "spl-token-4";
-import { getProgramInstanceEditions } from "../../anchor/editions/getProgramInstanceEditions";
+import { getProgramInstanceEditions } from "@rarible_int/protocol-contracts-svm-core/src/program";
 import { getEditionsPda } from "../utils";
 import {IExecutorParams} from "@rarible_int/protocol-contracts-svm-core/src/IExecutorParams";
 import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core/src/txUtils";
 import { getHashlistPda } from  "../utils";
-import { getProgramInstanceEditionsControls } from "anchor/controls/getProgramInstanceEditionsControls";
+import { getProgramInstanceEditionsControls } from "@rarible_int/protocol-contracts-svm-core/src/program";
 import { getEditionsControlsPda } from "../utils";
 import { PROGRAM_ID_GROUP_EXTENSIONS } from "@rarible_int/protocol-contracts-svm-core/src/program";
 import { IInitializeLaunch } from "../model";

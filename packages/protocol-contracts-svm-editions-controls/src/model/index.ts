@@ -45,3 +45,24 @@ export interface CreatorWithShare {
     itemBaseName: string; // Name for each item
     cosignerProgramId?: PublicKey | null; // Optional cosigner program
   }
+
+  export interface IAddPhase {
+    maxMintsPerWallet: number; // set to 0 for unlimited
+    priceAmount: number,
+    maxMintsTotal: number,
+    deploymentId: string,
+    startTime: number | undefined,
+    endTime: number | undefined,
+    merkleRoot?: number[],
+    isPrivate?: boolean
+  }
+
+  export interface IMintWithControls {
+    phaseIndex: number;
+    editionsId: string;
+    numberOfMints: number;
+    merkleProof?: number[][];
+    allowListPrice?: number;
+    allowListMaxClaims?: number;
+    isAllowListMint: boolean;
+  }

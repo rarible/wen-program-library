@@ -1,5 +1,6 @@
-import { AnchorProvider, Program } from "@coral-xyz/anchor";
+import { AnchorProvider, BorshCoder, Program } from "@coral-xyz/anchor";
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
+import { IdlAccounts } from "@coral-xyz/anchor";
 
 import RaribleEditionsControlsIdlJson from "@rarible_int/protocol-contracts-svm-idl/lib/types/idl/rarible_editions_controls.json";
 import { RaribleEditionsControls } from "@rarible_int/protocol-contracts-svm-idl/lib/types/types/rarible_editions_controls";
@@ -63,3 +64,20 @@ export function getProgramInstanceEditions(connection: Connection) {
   const program = new Program<RaribleEditions>(idl, provider)!;
   return program;
 }
+
+export type RaribleEditions = IdlAccounts<RaribleEditions>["editionsDeployment"];
+export type RaribleEditionsControls = IdlAccounts<RaribleEditionsControls>["editionsControls"];
+
+export const decodeEditionsControls =
+  (program: Program<RaribleEditionsControls>) =>
+  (buffer: Buffer | undefined, pubkey: PublicKey) => {
+    const coder = new BorshCoder(program.idl);
+    const liquidity = buffer
+      ? coder.accounts.decode<RaribleEditionsControls>("editionsControls", buffer)
+      : null;
+
+    return {
+      item: liquidity,
+      pubkey,
+    };
+  };

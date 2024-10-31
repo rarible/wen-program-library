@@ -1,6 +1,10 @@
 import { PublicKey } from "@solana/web3.js";
 import { PROGRAM_ID_EDITIONS } from "@rarible_int/protocol-contracts-svm-core/src/program"
 import { PROGRAM_ID_EDITIONS_CONTROLS } from "@rarible_int/protocol-contracts-svm-core/src/program"
+import { toBufferLE } from "bigint-buffer";
+import { RaribleEditionsControls } from "packages/protocol-contracts-svm-idl/lib/types/types/rarible_editions_controls";
+import { BorshCoder, Program } from "@coral-xyz/anchor";
+
 
 export const getHashlistPda = (deployment: PublicKey) => {
   return PublicKey.findProgramAddressSync(
@@ -31,3 +35,24 @@ export const getEditionsControlsPda = (editionsDeployment: PublicKey) => {
     new PublicKey(PROGRAM_ID_EDITIONS_CONTROLS)
   )[0];
 };
+
+export const getMinterStatsPda = (deployment: PublicKey, minter: PublicKey) => {
+  return PublicKey.findProgramAddressSync(
+    [Buffer.from("minter_stats"), deployment.toBuffer(), minter.toBuffer()],
+    new PublicKey(PROGRAM_ID_EDITIONS_CONTROLS)
+  );
+};
+
+export const getMinterStatsPhasePda = (deployment: PublicKey, minter: PublicKey, phaseIndex: number) => {
+  return PublicKey.findProgramAddressSync(
+    [Buffer.from("minter_stats_phase"), deployment.toBuffer(), minter.toBuffer(), toBufferLE(BigInt(phaseIndex), 4)],
+    new PublicKey(PROGRAM_ID_EDITIONS_CONTROLS)
+  );
+};
+
+
+export const getBase64FromDatabytes = (dataBytes: Buffer, dataType: string) => {
+  const base = dataBytes.toString("base64");
+  return `data:${dataType};base64,${base}`;
+};
+

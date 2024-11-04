@@ -23,9 +23,8 @@
     "./lib/types/*": "./lib/types/*"
   },
   "scripts": {
-    "clean": "npx shx mkdir -p lib && npx shx rm -rf lib",
-    "package": "npx shx mkdir  -p lib/cjs lib/esm lib/types",
-    "build": "pwd"
+    "clean": "npx shx mkdir -p build && npx shx rm -rf build",
+    "build": "tsc -b ./tsconfig-build.json"
   },
   "dependencies": {
     "@rarible_int/protocol-contracts-svm-idl": "0.1.0"

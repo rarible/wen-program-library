@@ -18,14 +18,10 @@
   ],
   "types": "./lib/types/index.d.ts",
   "exports": {
-    "./lib/esm/*": "./dist/esm/*",
-    "./lib/cjs/*": "./dist/cjs/*.js",
-    "./lib/types/*": "./dist/types/*",
-    "./*": "./dist/*"
+    "./*": "./build/*"
   },
   "scripts": {
-    "clean": "npx shx mkdir -p lib && npx shx rm -rf lib",
-    "package": "npx shx mkdir  -p lib/cjs lib/esm lib/types",
+    "clean": "npx shx mkdir -p build && npx shx rm -rf build",
     "build": "tsc -b ./tsconfig-build.json"
   },
   "dependencies": {

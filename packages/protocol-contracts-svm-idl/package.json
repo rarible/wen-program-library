@@ -23,7 +23,7 @@
     "./lib/types/*": "./lib/types/*"
   },
   "scripts": {
-    "clean": "npx shx mkdir -p lib && npx shx rm -rf lib",
+    "clean": "mkdir -p lib && rm -rf lib",
     "package": "npx shx mkdir  -p lib/cjs lib/esm lib/types",
     "build": "rm -rf ./lib && tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json"
   },

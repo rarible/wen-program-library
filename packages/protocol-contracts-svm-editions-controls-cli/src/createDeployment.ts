@@ -2,7 +2,7 @@ import { Connection, PublicKey } from "@solana/web3.js";
 
 import { Command } from "commander";
 import BN from "bn.js";
-import {createDeployment} from "@rarible_int/protocol-contracts-svm-editions-controls"
+import {createDeployment} from "@rarible_int/protocol-contracts-svm-editions-controls/src/instructions/createControlDeployment"
 import {getWallet} from "@rarible_int/protocol-contracts-svm-core"
 
 // Define CLI options

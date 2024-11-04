@@ -18,6 +18,7 @@
   ],
   "scripts": {
     "build": "tsc --project tsconfig-build.json",
+    "clean": "mkdir -p build &&  mkdir -p node_modules && rm -rf build && rm -rf node_modules",
     "package": "npx shx mkdir  -p lib/cjs lib/esm lib/types"
   },
   "resolutions": {

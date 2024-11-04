@@ -9,14 +9,14 @@ import {
 import BN from "bn.js";
 
 import { TOKEN_2022_PROGRAM_ID } from "spl-token-4";
-import { getProgramInstanceEditions } from "@rarible_int/protocol-contracts-svm-core/src/program";
+import { getProgramInstanceEditions } from "@rarible_int/protocol-contracts-svm-core";
 import { getEditionsPda } from "../utils";
-import {IExecutorParams} from "@rarible_int/protocol-contracts-svm-core/src/IExecutorParams";
-import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core/src/txUtils";
+import {IExecutorParams} from "@rarible_int/protocol-contracts-svm-core";
+import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core";
 import { getHashlistPda } from  "../utils";
-import { getProgramInstanceEditionsControls } from "@rarible_int/protocol-contracts-svm-core/src/program";
+import { getProgramInstanceEditionsControls } from "@rarible_int/protocol-contracts-svm-core";
 import { getEditionsControlsPda } from "../utils";
-import { PROGRAM_ID_GROUP_EXTENSIONS } from "@rarible_int/protocol-contracts-svm-core/src/program";
+import { PROGRAM_ID_GROUP_EXTENSIONS } from "@rarible_int/protocol-contracts-svm-core";
 import { IInitializeLaunch } from "../model";
 
 

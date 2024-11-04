@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
-import { PROGRAM_ID_EDITIONS } from "@rarible_int/protocol-contracts-svm-core/src/program"
-import { PROGRAM_ID_EDITIONS_CONTROLS } from "@rarible_int/protocol-contracts-svm-core/src/program"
+import { PROGRAM_ID_EDITIONS } from "@rarible_int/protocol-contracts-svm-core"
+import { PROGRAM_ID_EDITIONS_CONTROLS } from "@rarible_int/protocol-contracts-svm-core"
 import { toBufferLE } from "bigint-buffer";
 
 

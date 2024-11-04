@@ -9,11 +9,11 @@ import {
 import BN from "bn.js";
 
 import { TOKEN_2022_PROGRAM_ID } from "spl-token-4";
-import { getProgramInstanceEditions } from "@rarible_int/protocol-contracts-svm-core/src/program";
-import { getProgramInstanceEditionsControls } from "@rarible_int/protocol-contracts-svm-core/src/program";
+import { getProgramInstanceEditions } from "@rarible_int/protocol-contracts-svm-core";
+import { getProgramInstanceEditionsControls } from "@rarible_int/protocol-contracts-svm-core";
 import { getEditionsControlsPda } from "../utils";
-import { IExecutorParams } from "@rarible_int/protocol-contracts-svm-core/src/IExecutorParams";
-import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core/src/txUtils";
+import { IExecutorParams } from "@rarible_int/protocol-contracts-svm-core";
+import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core";
 import { IAddPhase } from "../model";
 
 export const addPhase = async ({

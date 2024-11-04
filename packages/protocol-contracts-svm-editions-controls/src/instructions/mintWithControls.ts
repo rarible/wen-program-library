@@ -14,7 +14,7 @@ import {
   getAssociatedTokenAddressSync,
   ASSOCIATED_TOKEN_PROGRAM_ID,
 } from "spl-token-4";
-import { getProgramInstanceEditions } from "@rarible_int/protocol-contracts-svm-core/src/program";
+import { getProgramInstanceEditions } from "@rarible_int/protocol-contracts-svm-core";
 import { getProgramInstanceEditionsControls } from "@rarible_int/protocol-contracts-svm-core/src/program";
 import { getEditionsControlsPda, getHashlistPda, getHashlistMarkerPda, getMinterStatsPda, getMinterStatsPhasePda } from "../utils";
 import { IExecutorParams } from "@rarible_int/protocol-contracts-svm-core/src/IExecutorParams";

@@ -7,9 +7,9 @@ import {
 import BN from "bn.js";
 
 import { getEditionsControlsPda } from "../utils";
-import { decodeEditions, decodeEditionsControls, getProgramInstanceEditions, getProgramInstanceEditionsControls } from "@rarible_int/protocol-contracts-svm-core/src/program";
-import { IExecutorParams } from "@rarible_int/protocol-contracts-svm-core/src/IExecutorParams";
-import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core/src/txUtils";
+import { decodeEditions, decodeEditionsControls, getProgramInstanceEditions, getProgramInstanceEditionsControls } from "@rarible_int/protocol-contracts-svm-core";
+import { IExecutorParams } from "@rarible_int/protocol-contracts-svm-core";
+import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core";
 import { IModifyPlatformFee } from "../model";
 
 export const modifyPlatformFee = async ({

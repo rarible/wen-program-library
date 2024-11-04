@@ -12,9 +12,9 @@ import {
   decodeEditionsControls,
   getProgramInstanceEditions,
   getProgramInstanceEditionsControls,
-} from "@rarible_int/protocol-contracts-svm-core/src/program";
-import { IExecutorParams } from "@rarible_int/protocol-contracts-svm-core/src/IExecutorParams";
-import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core/src/txUtils";
+} from "@rarible_int/protocol-contracts-svm-core";
+import { IExecutorParams } from "@rarible_int/protocol-contracts-svm-core";
+import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core";
 import { TOKEN_2022_PROGRAM_ID } from "spl-token-4";
 
 // Arguments for modifying royalties

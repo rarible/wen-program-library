@@ -65,15 +65,28 @@ export function getProgramInstanceEditions(connection: Connection) {
   return program;
 }
 
-export type RaribleEditions = IdlAccounts<RaribleEditions>["editionsDeployment"];
-export type RaribleEditionsControls = IdlAccounts<RaribleEditionsControls>["editionsControls"];
+export type RaribleEditionsIdl = IdlAccounts<RaribleEditions>["editionsDeployment"];
+export type RaribleEditionsControlsIdl = IdlAccounts<RaribleEditionsControls>["editionsControls"];
 
 export const decodeEditionsControls =
   (program: Program<RaribleEditionsControls>) =>
   (buffer: Buffer | undefined, pubkey: PublicKey) => {
     const coder = new BorshCoder(program.idl);
     const liquidity = buffer
-      ? coder.accounts.decode<RaribleEditionsControls>("editionsControls", buffer)
+      ? coder.accounts.decode<RaribleEditionsControlsIdl>("editionsControls", buffer)
+      : null;
+
+    return {
+      item: liquidity,
+      pubkey,
+    };
+  };
+  export const decodeEditions =
+  (program: Program<RaribleEditions>) =>
+  (buffer: Buffer | undefined, pubkey: PublicKey) => {
+    const coder = new BorshCoder(program.idl);
+    const liquidity = buffer
+      ? coder.accounts.decode<RaribleEditionsIdl>("editionsDeployment", buffer)
       : null;
 
     return {

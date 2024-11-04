@@ -19,7 +19,7 @@ import { getProgramInstanceEditionsControls } from "@rarible_int/protocol-contra
 import { getEditionsControlsPda, getHashlistPda, getHashlistMarkerPda, getMinterStatsPda, getMinterStatsPhasePda } from "../utils";
 import { IExecutorParams } from "@rarible_int/protocol-contracts-svm-core/src/IExecutorParams";
 import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core/src/txUtils";
-import { decodeEditions, decodeEditionsControls } from "@rarible_int/protocol-contracts-svm-core/src/accounts";
+import { decodeEditions, decodeEditionsControls } from "@rarible_int/protocol-contracts-svm-core/src/program";
 import { PROGRAM_ID_GROUP_EXTENSIONS } from "@rarible_int/protocol-contracts-svm-core/src/program";
 import { IMintWithControls } from "../model";
 

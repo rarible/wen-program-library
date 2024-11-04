@@ -49,7 +49,8 @@
     "spl-token-4": "npm:@solana/spl-token@0.3.11",
     "tweetnacl": "^1.0.3",
     "@rarible_int/protocol-contracts-svm-idl": "0.1.0",
-    "@rarible_int/protocol-contracts-svm-core": "0.1.0"
+    "@rarible_int/protocol-contracts-svm-core": "0.1.0",
+    "@rarible_int/protocol-contracts-svm-editions-controls": "0.1.0"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.5",

@@ -66,3 +66,11 @@ export interface CreatorWithShare {
     allowListMaxClaims?: number;
     isAllowListMint: boolean;
   }
+
+  // Arguments for modifying platform fee
+export interface IModifyPlatformFee {
+  editionsId: string;
+  platformFeeValue: BN; // Should be BN if required
+  isFeeFlat: boolean;
+  recipients: { address: PublicKey; share: number }[];
+}

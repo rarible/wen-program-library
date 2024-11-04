@@ -1,105 +1,104 @@
 import {
-    Transaction,
-    TransactionInstruction,
-    PublicKey,
-    SystemProgram,
-    ComputeBudgetProgram,
-  } from "@solana/web3.js";
-  
-  import { getProgramInstanceEditions } from "../../anchor/editions/getProgramInstanceEditions";
-  import { IExecutorParams } from "../../cli/IExecutorParams";
-  import { sendSignedTransaction } from "../tx_utils";
+  Transaction,
+  PublicKey,
+  SystemProgram,
+  ComputeBudgetProgram,
+} from "@solana/web3.js";
+import BN from "bn.js";
+
+import { getEditionsControlsPda } from "../utils";
+import {
+  decodeEditions,
+  decodeEditionsControls,
+  getProgramInstanceEditions,
+  getProgramInstanceEditionsControls,
+} from "@rarible_int/protocol-contracts-svm-core/src/program";
+import { IExecutorParams } from "@rarible_int/protocol-contracts-svm-core/src/IExecutorParams";
+import { sendSignedTransaction } from "@rarible_int/protocol-contracts-svm-core/src/txUtils";
 import { TOKEN_2022_PROGRAM_ID } from "spl-token-4";
-import { getProgramInstanceEditionsControls } from "anchor/controls/getProgramInstanceEditionsControls";
-import { getEditionsControlsPda } from "anchor/controls/pdas/getEditionsControlsPda";
-  
-  // Arguments for modifying royalties
-  export interface IModifyRoyalties {
-    editionsId: string;
-    royaltyBasisPoints: number;
-    creators: { address: PublicKey; share: number }[];
+
+// Arguments for modifying royalties
+export interface IModifyRoyalties {
+  editionsId: string;
+  royaltyBasisPoints: number;
+  creators: { address: PublicKey; share: number }[];
+}
+
+export const modifyRoyalties = async ({
+  wallet,
+  params,
+  connection,
+}: IExecutorParams<IModifyRoyalties>) => {
+  const { editionsId, royaltyBasisPoints, creators } = params;
+
+  const raribleEditionsProgram = getProgramInstanceEditions(connection);
+  const editionsControlsProgram = getProgramInstanceEditionsControls(connection);
+
+  const editions = new PublicKey(editionsId);
+  const editionsData = await connection.getAccountInfo(editions);
+  if (!editionsData) {
+    throw Error("Editions not found");
   }
-  
-  // Max number of updates per transaction
-  const MAX_UPDATES_PER_TRANSACTION = 5;
-  
-  export const modifyRoyalties = async ({
-    wallet,
-    params,
+
+  const editionsObj = decodeEditions(raribleEditionsProgram)(
+    editionsData.data,
+    editions
+  );
+
+  const editionsControlsPda = getEditionsControlsPda(editions)[0];
+  const editionsControlsData = await connection.getAccountInfo(editionsControlsPda);
+  if (!editionsControlsData) {
+    throw Error("Editions controls not found");
+  }
+
+  const editionsControlsObj = decodeEditionsControls(editionsControlsProgram)(
+    editionsControlsData.data,
+    editionsControlsPda
+  );
+
+  // Create the instruction to modify royalties
+  const instruction = await editionsControlsProgram.methods
+    .modifyRoyalties({
+      royaltyBasisPoints,
+      creators,
+    })
+    .accountsStrict({
+      editionsControls: editionsControlsPda,
+      editionsDeployment: editions,
+      payer: wallet.publicKey,
+      creator: wallet.publicKey,
+      mint: editionsObj.item.groupMint,
+      systemProgram: SystemProgram.programId,
+      tokenProgram: TOKEN_2022_PROGRAM_ID,
+      raribleEditionsProgram: raribleEditionsProgram.programId,
+    })
+    .signers([])
+    .instruction();
+
+  // Create the transaction and add the instruction
+  const instructions = [];
+
+  // Add compute budget instruction
+  instructions.push(
+    ComputeBudgetProgram.setComputeUnitLimit({
+      units: 850_000,
+    })
+  );
+
+  instructions.push(instruction);
+
+  const tx = new Transaction().add(...instructions);
+  tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+  tx.feePayer = wallet.publicKey;
+
+  // Sign and send the transaction
+  await wallet.signTransaction(tx);
+
+  const txid = await sendSignedTransaction({
+    signedTransaction: tx,
     connection,
-  }: IExecutorParams<IModifyRoyalties>) => {
-    const { editionsId, royaltyBasisPoints, creators } = params;
-  
-    const raribleEditionsProgram = getProgramInstanceEditions(connection);
-    const editionsControlsProgram = getProgramInstanceEditionsControls(connection);
+    skipPreflight: false,
+  });
 
-    const editions = new PublicKey(editionsId);
-    const editionsData = await connection.getAccountInfo(editions);
-    const editionsControlsPda = getEditionsControlsPda(editions);
-    if (!editionsData) {
-      throw Error("Editions not found");
-    }
-  
-    const editionsObj = await raribleEditionsProgram.account.editionsDeployment.fetch(editions);
-  
-    let remainingUpdates = creators.length;
-    let txs: Transaction[] = [];
-  
-
-    const instructions: TransactionInstruction[] = [];
-    
-    instructions.push(
-      ComputeBudgetProgram.setComputeUnitLimit({
-        units: 850_000,
-      })
-    );
-
-    const updatesForTx = Math.min(MAX_UPDATES_PER_TRANSACTION, remainingUpdates);
-
-    let creators_to_push = []
-    for (let i = 0; i < updatesForTx; i++) {
-      const creator = creators[i];
-      creators_to_push.push(creator);
-    }
-
-    instructions.push(
-      await editionsControlsProgram.methods
-        .modifyRoyalties({
-          royaltyBasisPoints,
-          creators: creators_to_push,
-        })
-        .accountsStrict({
-          editionsControls: editionsControlsPda,
-          editionsDeployment: editions,
-          payer: wallet.publicKey,
-          mint: editionsObj.groupMint,
-          systemProgram: SystemProgram.programId,
-          tokenProgram: TOKEN_2022_PROGRAM_ID,
-          creator: wallet.publicKey,
-          raribleEditionsProgram: raribleEditionsProgram.programId
-        })
-        .signers([])
-        .instruction()
-    );
-
-    const tx = new Transaction().add(...instructions);
-    tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
-    tx.feePayer = wallet.publicKey;
-    txs.push(tx);
-    
-  
-    await wallet.signAllTransactions(txs);
-  
-    const promises = txs.map((item) =>
-      sendSignedTransaction({
-        signedTransaction: item,
-        connection,
-        skipPreflight: false,
-      })
-    );
-  
-    await Promise.all(promises);
-  
-    return { editions };
-  };
-  
+  return { editions, txid };
+};
